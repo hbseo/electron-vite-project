@@ -1,8 +1,8 @@
-import { Map } from '@/components/Map';
+import { Info } from '@/components/Card';
 function App() {
     return (
         <div className="App">
-            <Map></Map>
+            <Info />
         </div>
     );
 }

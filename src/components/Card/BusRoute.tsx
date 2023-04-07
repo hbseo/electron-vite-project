@@ -1,8 +1,10 @@
 import React from 'react';
-import styled from 'styled-components';
+import styled from '@emotion/styled';
 
 const StyledTooltip = styled.div`
     position: absolute;
+    top: 2px;
+    left: 5px;
     z-index: 1;
     visibility: hidden;
     width: 30px;
@@ -124,7 +126,7 @@ export function BusRoute() {
     return (
         <>
             <StyledPath direction={1}>
-                <StyledTooltip>1</StyledTooltip>
+                <StyledTooltip>에이스 하이테크시티</StyledTooltip>
             </StyledPath>
             <StyledPath direction={2}>
                 <StyledTooltip>2</StyledTooltip>

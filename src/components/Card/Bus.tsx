@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled from '@emotion/styled';
 import { BiBus } from 'react-icons/bi';
 
 const StyledBus = styled(BiBus)<{ color?: string; size?: number; pos: { top: number; left: number } }>`
