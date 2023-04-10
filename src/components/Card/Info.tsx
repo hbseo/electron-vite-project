@@ -4,7 +4,7 @@ import { OverflownText } from '@/custom/OverflownText';
 export function Info() {
     return (
         <Card>
-            <CardBody padding={'10px'}>
+            <CardBody padding={'10px'} minWidth={'300px'}>
                 <Flex>
                     <Box width={'25%'} textAlign={'left'}>
                         <Text fontSize={'2xs'}>버스 번호</Text>
@@ -13,7 +13,7 @@ export function Info() {
                     <Box width={'50%'}>
                         <Center fontSize={'2xs'}>현재 위치</Center>
                         <Center>
-                            <OverflownText noOfLines={1} fontSize={'sm'}>
+                            <OverflownText noOfLines={1} fontSize={'sm'} textOverflow={'ellipsis'} display={'inline'}>
                                 대구의료원라파엘웰빙센터건너
                             </OverflownText>
                         </Center>

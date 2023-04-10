@@ -16,7 +16,7 @@ const StyledTooltip = styled.div`
     font-size: 12px;
 `;
 // ─ │ ┌ ┐ ┘ └ .
-const StyledPath = styled.div<{ direction?: number }>`
+const StyledPath = styled.div<{ direction?: number; color?: string }>`
     position: relative;
     width: 6px;
     height: 6px;
@@ -24,7 +24,7 @@ const StyledPath = styled.div<{ direction?: number }>`
     border-style: solid;
     border-radius: 50%;
     border-width: 2px;
-    border-color: rgb(135, 199, 0);
+    ${({ color }) => `border-color: ${color || 'rgb(135, 199, 0)'};`}
     margin: 22px;
 
     &:before,

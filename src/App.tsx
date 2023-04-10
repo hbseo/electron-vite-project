@@ -1,8 +1,8 @@
-import { Info } from '@/components/Card';
+import { Card } from '@/components/Card';
 function App() {
     return (
         <div className="App">
-            <Info />
+            <Card title="영등포역" />
         </div>
     );
 }
