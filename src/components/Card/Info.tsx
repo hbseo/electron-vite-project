@@ -1,4 +1,4 @@
-import { Flex, Text } from '@chakra-ui/react';
+import { Flex } from '@chakra-ui/react';
 import { OverflownText } from '@/custom/OverflownText';
 
 export interface InfoProps {
