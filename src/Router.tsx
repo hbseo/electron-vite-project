@@ -1,12 +1,12 @@
 import React from 'react';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
-import { Home } from '@/pages/Home';
+import { BusPage } from '@/pages';
 
 function Router() {
     return (
         <BrowserRouter>
             <Routes>
-                <Route path="/" element={<Home />} />
+                <Route path="/" element={<BusPage />} />
             </Routes>
         </BrowserRouter>
     );
