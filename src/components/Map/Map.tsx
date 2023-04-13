@@ -14,8 +14,7 @@ export function Map() {
     const mapElement = React.useRef<HTMLDivElement>(null);
 
     React.useEffect(() => {
-        const busDataUrl = 'data/testData.json';
-        fetch(busDataUrl, {
+        fetch('data/busData.json', {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',
@@ -42,52 +41,6 @@ export function Map() {
                         },
                     };
                     const map = new naver.maps.Map(mapElement.current, mapOptions);
-
-                    let markers: naver.maps.Marker[] = [];
-
-                    data.forEach((station: BusData) => {
-                        let location = new naver.maps.LatLng(station['Lat'], station['Lng']);
-
-                        let marker = new naver.maps.Marker({
-                            position: location,
-                            map,
-                            icon: {
-                                url: BusIcon,
-                                size: new naver.maps.Size(12, 12),
-                                scaledSize: new naver.maps.Size(12, 12),
-                            },
-                        });
-                        markers.push(marker);
-                    });
-
-                    naver.maps.Event.addListener(map, 'zoom_changed', function () {
-                        updateMarkers(markers);
-                    });
-                    naver.maps.Event.addListener(map, 'dragend', function () {
-                        updateMarkers(markers);
-                    });
-
-                    function updateMarkers(markers: naver.maps.Marker[]) {
-                        let bounds = map.getBounds();
-                        let marker, position;
-                        for (let i = 0, ii = markers.length; i < ii; i++) {
-                            marker = markers[i];
-                            position = marker.getPosition();
-                            if (bounds.hasLatLng(position) && map.getZoom() >= 17) {
-                                showMarker(marker);
-                            } else {
-                                hideMarker(marker);
-                            }
-                        }
-                    }
-                    function showMarker(marker: naver.maps.Marker) {
-                        if (marker.setMap()) return;
-                        marker.setMap(map);
-                    }
-                    function hideMarker(marker: naver.maps.Marker) {
-                        if (!marker.setMap()) return;
-                        marker.setMap(null);
-                    }
                 });
             })
             .catch((error) => {
