@@ -14,7 +14,7 @@ export interface CardProps {
     title: string;
 }
 
-export function Card({ ...props }: React.PropsWithChildren<CardProps>) {
+export function Card({ title, ...rest }: React.PropsWithChildren<CardProps>) {
     return (
         <Flex p={10} w={'full'} alignItems={'center'} justifyContent={'center'}>
             <Box minW={'350px'} mx={'auto'} shadow={'lg'} rounded={'lg'} overflow={'hidden'}>
@@ -27,7 +27,7 @@ export function Card({ ...props }: React.PropsWithChildren<CardProps>) {
                         textOverflow={'ellipsis'}
                         display={'inline'}
                     >
-                        {props.title}
+                        {title}
                     </OverflownText>
                 </Flex>
 

@@ -4,7 +4,7 @@ export interface NavItemProps {
     icon?: React.ElementType;
 }
 
-export function NavItem({ ...props }: React.PropsWithChildren<NavItemProps>) {
+export function NavItem({ icon, children, ...rest }: React.PropsWithChildren<NavItemProps>) {
     return (
         <Flex
             align={'center'}
@@ -16,10 +16,10 @@ export function NavItem({ ...props }: React.PropsWithChildren<NavItemProps>) {
             role="group"
             fontWeight={'semibold'}
             transition={'.15s ease'}
-            {...props}
+            {...rest}
         >
-            {props.icon && <Icon mx={2} boxSize={4} as={props.icon}></Icon>}
-            {props.children}
+            {icon && <Icon mx={2} boxSize={4} as={icon}></Icon>}
+            {children}
         </Flex>
     );
 }

@@ -32,9 +32,9 @@ export function App() {
                         size={'sm'}
                     />
                 </Flex>
-                <Box as={'main'} p={4}>
-                    <Router />
-                </Box>
+            </Box>
+            <Box as={'main'} p={4}>
+                <Router />
             </Box>
         </Box>
     );
