@@ -16,7 +16,7 @@ export interface CardProps {
 
 export function Card({ title, ...rest }: React.PropsWithChildren<CardProps>) {
     return (
-        <Flex p={10} w={'full'} alignItems={'center'} justifyContent={'center'}>
+        <Flex py={2} w={'full'} alignItems={'center'} justifyContent={'center'}>
             <Box minW={'350px'} mx={'auto'} shadow={'lg'} rounded={'lg'} overflow={'hidden'}>
                 <Flex alignItems={'center'} px={6} py={3} bg={'gray.900'}>
                     <OverflownText

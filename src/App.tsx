@@ -1,7 +1,7 @@
 import { Box, Flex, Drawer, DrawerOverlay, DrawerContent, useDisclosure, IconButton } from '@chakra-ui/react';
 import { SidebarContent } from '@/components/Sidebar';
 import { FiMenu } from 'react-icons/fi';
-import Router from '@/Router';
+import { Router } from '@/Router';
 
 export function App() {
     const sidebar = useDisclosure();
@@ -14,7 +14,7 @@ export function App() {
                     <SidebarContent w={'full'} borderRight={'none'} />
                 </DrawerContent>
             </Drawer>
-            <Box ml={{ base: 0, md: 60 }} transition={'.3s ease'}>
+            <Box ml={{ base: 0, md: 40 }} transition={'.3s ease'}>
                 <Flex
                     as={'header'}
                     align={'center'}
@@ -32,9 +32,9 @@ export function App() {
                         size={'sm'}
                     />
                 </Flex>
-            </Box>
-            <Box as={'main'} p={4}>
-                <Router />
+                <Box as={'main'} p={4}>
+                    <Router />
+                </Box>
             </Box>
         </Box>
     );

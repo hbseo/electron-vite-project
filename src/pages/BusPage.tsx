@@ -1,4 +1,5 @@
 import React from 'react';
+import { SimpleGrid, Box } from '@chakra-ui/react';
 import { Card } from '@/components/Card';
 
 export function BusPage() {
@@ -7,8 +8,13 @@ export function BusPage() {
     }, []);
 
     return (
-        <>
-            <Card title={'영등포역'} />
-        </>
+        <Box>
+            <SimpleGrid minChildWidth={'350px'} spacing={2}>
+                <Card title={'영등포역'} />
+                <Card title={'영등포역'} />
+                <Card title={'영등포역'} />
+                <Card title={'영등포역'} />
+            </SimpleGrid>
+        </Box>
     );
 }

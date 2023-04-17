@@ -2,7 +2,7 @@ import React from 'react';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import { BusPage } from '@/pages';
 
-function Router() {
+export function Router() {
     return (
         <BrowserRouter>
             <Routes>
@@ -11,5 +11,3 @@ function Router() {
         </BrowserRouter>
     );
 }
-
-export default Router;
