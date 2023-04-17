@@ -1,11 +1,10 @@
-import { Flex } from '@chakra-ui/react';
+import { Flex, FlexProps } from '@chakra-ui/react';
 import { OverflownText } from '@/custom/OverflownText';
 
-export interface InfoProps {
+export interface InfoProps extends FlexProps {
     id: string;
     station: string;
     time: number;
-    onClick?: () => void;
 }
 
 export function Info({ id, station, time, ...rest }: React.PropsWithChildren<InfoProps>) {
