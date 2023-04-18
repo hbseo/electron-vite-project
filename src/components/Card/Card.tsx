@@ -38,7 +38,9 @@ export function Card({ title, ...rest }: React.PropsWithChildren<CardProps>) {
 
                 <Box py={2} px={4} maxH={'200px'} overflowY={'auto'}>
                     {showBusRoute ? (
-                        <BusRoute />
+                        <Box>
+                            <BusRoute />
+                        </Box>
                     ) : (
                         <Box>
                             <StyledInfo
