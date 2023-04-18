@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from '@emotion/styled';
 import { Flex, Box } from '@chakra-ui/react';
-import { Info } from './Info';
+import { Info, BusRoute } from '@/components/Card';
 import { OverflownText } from '@/custom/OverflownText';
 
 const StyledInfo = styled(Info)`
@@ -15,6 +15,11 @@ export interface CardProps {
 }
 
 export function Card({ title, ...rest }: React.PropsWithChildren<CardProps>) {
+    const [showBusRoute, setShowBusRoute] = React.useState(false);
+    const handleInfoClick = React.useCallback(() => {
+        setShowBusRoute((prev) => !prev);
+    }, []);
+
     return (
         <Flex py={2} w={'full'} alignItems={'center'} justifyContent={'center'}>
             <Box minW={'350px'} mx={'auto'} shadow={'lg'} rounded={'lg'} overflow={'hidden'}>
@@ -32,17 +37,21 @@ export function Card({ title, ...rest }: React.PropsWithChildren<CardProps>) {
                 </Flex>
 
                 <Box py={2} px={4} maxH={'200px'} overflowY={'auto'}>
-                    <StyledInfo
-                        id="5714"
-                        station="금천구청독산가산디지털단지구로신도림영등포"
-                        time={15}
-                        onClick={() => {
-                            console.log('clicked');
-                        }}
-                    />
-                    <StyledInfo id="10-1" station="금천구청독산가산디지털단지구로신도림영등포" time={15} />
-                    <StyledInfo id="5714" station="금천구청독산가산디지털단지구로신도림영등포" time={15} />
-                    <StyledInfo id="5714" station="금천구청독산가산디지털단지구로신도림영등포" time={15} />
+                    {showBusRoute ? (
+                        <BusRoute />
+                    ) : (
+                        <Box>
+                            <StyledInfo
+                                id="5714"
+                                station="금천구청독산가산디지털단지구로신도림영등포"
+                                time={15}
+                                onClick={handleInfoClick}
+                            />
+                            <StyledInfo id="10-1" station="금천구청독산가산디지털단지구로신도림영등포" time={15} />
+                            <StyledInfo id="5714" station="금천구청독산가산디지털단지구로신도림영등포" time={15} />
+                            <StyledInfo id="5714" station="금천구청독산가산디지털단지구로신도림영등포" time={15} />
+                        </Box>
+                    )}
                 </Box>
             </Box>
         </Flex>
