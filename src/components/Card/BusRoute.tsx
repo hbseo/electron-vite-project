@@ -1,6 +1,5 @@
 import styled from '@emotion/styled';
-import { css } from '@emotion/react';
-import { chakra } from '@chakra-ui/react';
+import { Tooltip, chakra } from '@chakra-ui/react';
 
 const StyledTooltip = styled(chakra.div)`
     position: absolute;
@@ -16,14 +15,6 @@ const StyledTooltip = styled(chakra.div)`
     padding: 5px 0;
     font-size: 12px;
 `;
-
-const pathStyles = () => {
-    return css`
-        &:hover > * {
-            display: visible;
-        }
-    `;
-};
 
 // ─ │ ┌ ┐ ┘ └ .
 const StyledPath = styled(chakra.div)<{ direction?: number; color?: string }>`
@@ -141,6 +132,9 @@ export function BusRoute() {
             <StyledPath>
                 <StyledTooltip>6</StyledTooltip>
             </StyledPath>
+            <Tooltip label="asbc">
+                <StyledPath direction={1}></StyledPath>
+            </Tooltip>
         </>
     );
 }
