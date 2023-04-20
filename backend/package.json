@@ -6,7 +6,8 @@
   "scripts": {
     "start": "yarn run build && cross-env NODE_ENV=production node dist/server.js",
     "dev": "cross-env NODE_ENV=development nodemon",
-    "build": "tsc -p ."
+    "build": "tsc -p .",
+    "test": "jest --forceExit --detectOpenHandles"
   },
   "devDependencies": {
     "@types/express": "^4.17.17",
