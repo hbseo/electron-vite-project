@@ -1,11 +1,9 @@
 import { hash } from 'bcrypt';
 import { User } from '@/interfaces/users.interface';
-import { Service } from 'typedi';
 import { Repository } from 'typeorm';
 import { UserEntity } from '@/entities/users.entity';
 import { HttpException } from '@/exceptions/httpException';
 
-@Service()
 export class AuthService extends Repository<UserEntity> {
     public async signup(userData: User): Promise<User> {
         const findUser: User = await UserEntity.findOne({ where: { email: userData.email } });
