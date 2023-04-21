@@ -4,6 +4,7 @@ import { Routes } from '@interfaces/routes.interface';
 import { NODE_ENV, PORT, ORIGIN } from '@config';
 import { DataSource } from 'typeorm';
 import { dbConnection } from '@database';
+import { insertBusStation } from './utils/insertBusStation';
 
 export class App {
     public app: express.Application;
@@ -35,10 +36,12 @@ export class App {
 
     private async connectToDatabase() {
         const appDataSource = new DataSource(dbConnection);
-        await appDataSource.initialize().then(() => {
+        await appDataSource.initialize().then(async (connection) => {
             console.log('=================================');
             console.log('=======   DB CONNECTED!   =======');
             console.log('=================================');
+
+            await insertBusStation(appDataSource);
         });
     }
 
