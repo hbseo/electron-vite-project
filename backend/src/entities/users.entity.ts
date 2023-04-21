@@ -10,7 +10,7 @@ import {
 } from 'typeorm';
 import { User } from '@interfaces/users.interface';
 
-@Entity()
+@Entity({ name: 'users' })
 export class UserEntity extends BaseEntity implements User {
     @PrimaryGeneratedColumn()
     id: number;
