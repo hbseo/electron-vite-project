@@ -12,4 +12,14 @@ export class BusController {
             next(error);
         }
     };
+
+    public getStationByNameList = async (req: Request, res: Response, next: NextFunction): Promise<Response> => {
+        try {
+            const { stSrch } = req.query;
+            const station = await this.bus.getStationByNameList(stSrch as string);
+            return res.status(200).json({ data: station, message: 'getStationByNameList' });
+        } catch (error) {
+            next(error);
+        }
+    };
 }

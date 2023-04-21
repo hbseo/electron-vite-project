@@ -16,4 +16,11 @@ export class BusService {
         const data = response.data;
         return data;
     }
+
+    public async getStationByNameList(stSrch: string): Promise<void> {
+        const url = `${this.endpoint}/stationinfo/getStationByNameList?serviceKey=${this.key}&stSrch=${stSrch}&resultType=json`;
+        const response = await axios(url);
+        const data = response.data;
+        return data;
+    }
 }

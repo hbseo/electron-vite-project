@@ -13,5 +13,6 @@ export class BusRoute implements Routes {
 
     private iniaializeRoutes() {
         this.router.get(`${this.path}/getStationByUid`, this.bus.getStationByUid);
+        this.router.get(`${this.path}/getStationByNameList`, this.bus.getStationByNameList);
     }
 }

@@ -1,7 +1,9 @@
 export interface BusStation {
-    NODE_ID: number;
-    ARS_ID: number;
-    STATION_NAME: string;
-    Lng: number;
-    Lat: number;
+    arsId: number;
+    posX: number;
+    posY: number;
+    stId: number;
+    stNm: string;
+    tmX: number;
+    tmY: number;
 }
