@@ -35,7 +35,7 @@ export class App {
 
     private async connectToDatabase() {
         const appDataSource = new DataSource(dbConnection);
-        await appDataSource.initialize().then(async (connection) => {
+        await appDataSource.initialize().then(() => {
             console.log('=================================');
             console.log('=======   DB CONNECTED!   =======');
             console.log('=================================');

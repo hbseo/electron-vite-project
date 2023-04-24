@@ -33,7 +33,7 @@ export function Card({ title }: React.PropsWithChildren<CardProps>) {
 
     return (
         <Flex py={2} w={'full'} alignItems={'center'} justifyContent={'center'}>
-            <Box w={'350px'} mx={'auto'} shadow={'lg'} rounded={'lg'} overflow={'hidden'}>
+            <Box w={'350px'} h={'250px'} mx={'auto'} shadow={'lg'} rounded={'lg'} overflow={'hidden'}>
                 <Flex alignItems={'center'} px={6} py={3} bg={'gray.900'} justify={'space-between'}>
                     <OverflownText
                         color={'white'}
