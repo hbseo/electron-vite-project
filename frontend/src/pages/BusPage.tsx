@@ -2,7 +2,14 @@ import React from 'react';
 import { SimpleGrid, Box } from '@chakra-ui/react';
 import { Card, PlusCard } from '@/components/Card';
 
+export interface BusStation {
+    title: string;
+    arsId: number;
+}
+
 export function BusPage() {
+    const [busStation, setBusStation] = React.useState<BusStation[]>([]);
+
     React.useEffect(() => {}, []);
 
     const handlePlusClick = React.useCallback(() => {}, []);
