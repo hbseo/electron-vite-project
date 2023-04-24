@@ -1,9 +1,10 @@
 import React from 'react';
 import styled from '@emotion/styled';
 import { css } from '@emotion/react';
-import { Flex, Box } from '@chakra-ui/react';
+import { Flex, Box, MenuItem, IconButton, Menu, MenuButton, MenuList } from '@chakra-ui/react';
 import { Info, BusRoute } from '@/components/Card';
 import { OverflownText, InputText } from '@/custom';
+import { GoKebabVertical } from 'react-icons/go';
 
 const StyledInfo = styled(Info)`
     &:not(:last-child) {
@@ -33,7 +34,7 @@ export function Card({ title }: React.PropsWithChildren<CardProps>) {
     return (
         <Flex py={2} w={'full'} alignItems={'center'} justifyContent={'center'}>
             <Box w={'350px'} mx={'auto'} shadow={'lg'} rounded={'lg'} overflow={'hidden'}>
-                <Flex alignItems={'center'} px={6} py={3} bg={'gray.900'}>
+                <Flex alignItems={'center'} px={6} py={3} bg={'gray.900'} justify={'space-between'}>
                     <OverflownText
                         color={'white'}
                         fontWeight={'bold'}
@@ -44,6 +45,13 @@ export function Card({ title }: React.PropsWithChildren<CardProps>) {
                     >
                         {title}
                     </OverflownText>
+                    <Menu>
+                        <MenuButton as={IconButton} aria-label={'Options'} icon={<GoKebabVertical />}></MenuButton>
+                        <MenuList>
+                            <MenuItem>수정</MenuItem>
+                            <MenuItem>삭제</MenuItem>
+                        </MenuList>
+                    </Menu>
                 </Flex>
 
                 <Box py={2} px={4} maxH={'200px'} overflowY={'auto'}>
