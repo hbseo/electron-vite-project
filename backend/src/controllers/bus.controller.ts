@@ -13,11 +13,11 @@ export class BusController {
         }
     };
 
-    public getStationByNameList = async (req: Request, res: Response, next: NextFunction): Promise<Response> => {
+    public getStationByName = async (req: Request, res: Response, next: NextFunction): Promise<Response> => {
         try {
             const { stSrch } = req.query;
             const station = await this.bus.getStationByNameList(stSrch as string);
-            return res.status(200).json({ data: station, message: 'getStationByNameList' });
+            return res.status(200).json({ data: station, message: 'getStationByName' });
         } catch (error) {
             next(error);
         }

@@ -18,7 +18,7 @@ export class BusService {
     }
 
     public async getStationByNameList(stSrch: string): Promise<void> {
-        const url = `${this.endpoint}/stationinfo/getStationByNameList?serviceKey=${this.key}&stSrch=${stSrch}&resultType=json`;
+        const url = `${this.endpoint}/stationinfo/getStationByName?serviceKey=${this.key}&stSrch=${stSrch}&resultType=json`;
         const response = await axios(url);
         const data = response.data;
         return data;

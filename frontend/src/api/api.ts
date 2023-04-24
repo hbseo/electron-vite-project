@@ -9,7 +9,7 @@ export async function getStationByUid(arsId: string) {
 }
 
 export async function getStationByNameList(stSrch: string) {
-    const url = `${API_ENDPOINT}/bus/getStationByNameList?stSrch=${stSrch}`;
+    const url = `${API_ENDPOINT}/bus/getStationByName?stSrch=${stSrch}`;
     const response = await axios(url);
     const data = response.data;
     return data;
