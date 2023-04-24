@@ -1,16 +1,16 @@
-const { VITE_DATA_API_KEY } = import.meta.env;
+import { API_ENDPOINT } from '@/config';
+import axios from 'axios';
 
-export async function getBusData() {
-    return fetch('./data/busData.json').then((response) => response.json());
+export async function getStationByUid(arsId: string) {
+    const url = `${API_ENDPOINT}/bus/getStationByUid?arsId=${arsId}`;
+    const response = await axios(url);
+    const data = response.data;
+    return data;
 }
 
-export async function getBusArrivalList(arsId: string | number) {
-    console.log(VITE_DATA_API_KEY);
-    return fetch(`/api/stationinfo/getStationByUid?serviceKey=${VITE_DATA_API_KEY}&arsId=${arsId}&resultType=json`, {
-        method: 'GET',
-        headers: {
-            'Content-Type': 'application/json',
-            'Access-Control-Allow-Origin': '*',
-        },
-    }).then((response) => response.json());
+export async function getStationByNameList(stSrch: string) {
+    const url = `${API_ENDPOINT}/bus/getStationByNameList?stSrch=${stSrch}`;
+    const response = await axios(url);
+    const data = response.data;
+    return data;
 }
