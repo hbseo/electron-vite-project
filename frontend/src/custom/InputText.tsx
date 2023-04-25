@@ -6,23 +6,20 @@ import { useInput } from '@/hooks';
 export interface InputTextProps extends InputGroupProps {
     initialValue?: string | number;
     placeholder?: string;
+    ref?: React.Ref<HTMLInputElement>;
     action?: (valut: string | number) => void;
 }
 
-export function InputText({
-    initialValue = '',
-    placeholder,
-    action,
-    children,
-    ...props
-}: React.PropsWithChildren<InputTextProps>) {
-    const value = useInput(initialValue, action);
-    return (
-        <InputGroup {...props}>
-            <InputLeftElement pointerEvents="none">
-                <FiSearch />
-            </InputLeftElement>
-            <Input placeholder={placeholder} {...value} />
-        </InputGroup>
-    );
-}
+export const InputText = React.forwardRef<HTMLInputElement, InputTextProps>(
+    ({ initialValue = '', placeholder, action, children, ...props }, ref) => {
+        const value = useInput(initialValue, action);
+        return (
+            <InputGroup {...props}>
+                <InputLeftElement pointerEvents="none">
+                    <FiSearch />
+                </InputLeftElement>
+                <Input placeholder={placeholder} {...value} ref={ref} />
+            </InputGroup>
+        );
+    },
+);
