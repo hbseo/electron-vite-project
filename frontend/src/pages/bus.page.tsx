@@ -37,7 +37,7 @@ export function BusPage() {
             } else {
                 getStationByName(value).then((response) => {
                     console.log(response);
-                    if (response.data.msgHeader.itemCount === 0) {
+                    if (Number(response.data.msgHeader.headerCd) !== 0) {
                         setSearchResult(<Box>검색 결과가 없습니다.</Box>);
                     } else {
                         setSearchResult(
