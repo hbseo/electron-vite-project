@@ -1,1 +1,1 @@
-export * from './BusPage';
+export * from './bus.page';

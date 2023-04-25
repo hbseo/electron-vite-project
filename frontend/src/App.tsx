@@ -15,15 +15,7 @@ export function App() {
                 </DrawerContent>
             </Drawer>
             <Box ml={{ base: 0, md: 40 }} transition={'.3s ease'}>
-                <Flex
-                    as={'header'}
-                    align={'center'}
-                    justify={'space-between'}
-                    w={'full'}
-                    px={4}
-                    borderBottomWidth={1}
-                    h={14}
-                >
+                <Flex as={'header'} align={'center'} justify={'space-between'} w={'full'} px={4} borderBottomWidth={1} h={14}>
                     <IconButton
                         aria-label={'Menu'}
                         display={{ base: 'inline-flex', md: 'none' }}

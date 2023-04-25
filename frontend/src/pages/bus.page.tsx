@@ -4,11 +4,15 @@ import { Card, PlusCard } from '@/components/Card';
 
 export interface BusStation {
     title: string;
-    arsId: number;
+    arsId: string;
 }
 
 export function BusPage() {
-    const [busStation, setBusStation] = React.useState<BusStation[]>([]);
+    const defaultBusStation = {
+        title: '금천구청',
+        arsId: '19004',
+    };
+    const [busStation, setBusStation] = React.useState<BusStation[]>([defaultBusStation]);
 
     React.useEffect(() => {}, []);
 
@@ -17,7 +21,9 @@ export function BusPage() {
     return (
         <Box>
             <SimpleGrid minChildWidth={'350px'} spacing={2}>
-                <Card title={'영등포역'} />
+                {busStation.map((station) => (
+                    <Card key={station.arsId} title={station.title} arsId={station.arsId} />
+                ))}
                 <PlusCard onClick={handlePlusClick} />
             </SimpleGrid>
         </Box>
