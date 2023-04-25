@@ -1,5 +1,6 @@
 import React from 'react';
 import BusIcon from '@/assets/images/bus-24.png';
+import { chakra } from '@chakra-ui/react';
 const { VITE_NAVER_MAP_CLIENT_ID } = import.meta.env;
 
 interface BusData {
@@ -10,7 +11,7 @@ interface BusData {
     Lng: number;
 }
 
-export function Map() {
+export function NaverMap() {
     const mapElement = React.useRef<HTMLDivElement>(null);
 
     React.useEffect(() => {
@@ -53,5 +54,5 @@ export function Map() {
         height: '600px',
     };
 
-    return <div ref={mapElement} style={mapStype}></div>;
+    return <chakra.div ref={mapElement} style={mapStype}></chakra.div>;
 }

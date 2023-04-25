@@ -1,6 +1,7 @@
 import React from 'react';
-import { SimpleGrid, Box } from '@chakra-ui/react';
-import { Card, PlusCard } from '@/components/Card';
+import { SimpleGrid, Box, useDisclosure, Flex } from '@chakra-ui/react';
+import { BusCard, BusAdd } from '@/components/Bus';
+import { ModalCustom, InputText } from '@/custom';
 
 export interface BusStation {
     title: string;
@@ -13,18 +14,23 @@ export function BusPage() {
         arsId: '19004',
     };
     const [busStation, setBusStation] = React.useState<BusStation[]>([defaultBusStation]);
+    const { isOpen, onOpen, onClose } = useDisclosure();
 
     React.useEffect(() => {}, []);
-
-    const handlePlusClick = React.useCallback(() => {}, []);
 
     return (
         <Box>
             <SimpleGrid minChildWidth={'350px'} spacing={2}>
                 {busStation.map((station) => (
-                    <Card key={station.arsId} title={station.title} arsId={station.arsId} />
+                    <BusCard key={station.arsId} title={station.title} arsId={station.arsId} />
                 ))}
-                <PlusCard onClick={handlePlusClick} />
+                <BusAdd onClick={onOpen} />
+                <ModalCustom title={'Modal Title'} onClose={onClose} isOpen={isOpen} handleModalConfirm={onClose}>
+                    <Flex>
+                        <InputText size={'sm'} mr={2} />
+                        <Box w={'500px'} h={'200px'} bg={'gray.600'} rounded={4} />
+                    </Flex>
+                </ModalCustom>
             </SimpleGrid>
         </Box>
     );

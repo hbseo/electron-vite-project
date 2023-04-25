@@ -7,7 +7,7 @@ const StyledPlus = styled(HiPlus)`
     color: #d6d4d4;
 `;
 
-export function PlusCard({ ...props }: React.PropsWithChildren<CenterProps>) {
+export function BusAdd({ ...props }: React.PropsWithChildren<CenterProps>) {
     return (
         <Flex py={2} w={'full'} alignItems={'center'} justifyContent={'center'}>
             <Center

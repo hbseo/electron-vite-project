@@ -10,6 +10,6 @@ const StyledBus = styled(BiBus)<{ color?: string; size?: number; pos: { top: num
     z-index: 9;
 `;
 
-export function Bus({ size, color, pos }: { size?: number; color?: string; pos: { top: number; left: number } }) {
+export function BusIcon({ size, color, pos }: { size?: number; color?: string; pos: { top: number; left: number } }) {
     return <StyledBus size={size} color={color} pos={pos}></StyledBus>;
 }

@@ -1,2 +1,2 @@
 export * from './NavItem';
-export * from './SidebarContent';
+export * from './Sidebar';

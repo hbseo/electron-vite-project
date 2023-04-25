@@ -2,13 +2,13 @@ import React from 'react';
 import styled from '@emotion/styled';
 import { css } from '@emotion/react';
 import { Flex, Box, MenuItem, IconButton, Menu, MenuButton, MenuList } from '@chakra-ui/react';
-import { Info, BusRoute } from '@/components/Card';
+import { BusInfo, BusRoute } from '@/components/Bus';
 import { OverflownText, InputText } from '@/custom';
 import { GoKebabVertical } from 'react-icons/go';
 import { getStationByUid } from '@/api';
 import { BusArrival } from '@/interfaces/busArrival.interface';
 
-const StyledInfo = styled(Info)`
+const StyledInfo = styled(BusInfo)`
     &:not(:last-child) {
         border-bottom: 1px solid black;
     }
@@ -18,12 +18,12 @@ const contentStyles = css`
     margin: 4px 0;
 `;
 
-export interface CardProps {
+export interface BusCardProps {
     arsId: string;
     title: string;
 }
 
-export function Card({ arsId, title }: React.PropsWithChildren<CardProps>) {
+export function BusCard({ arsId, title }: React.PropsWithChildren<BusCardProps>) {
     const [showBusRoute, setShowBusRoute] = React.useState(false);
     const [busList, setBusList] = React.useState<BusArrival[]>([]);
 
@@ -33,7 +33,6 @@ export function Card({ arsId, title }: React.PropsWithChildren<CardProps>) {
         }
         getStationByUid(arsId).then((response) => {
             setBusList(response.data.msgBody.itemList);
-            console.log(busList);
         });
     }, []);
 
@@ -49,7 +48,14 @@ export function Card({ arsId, title }: React.PropsWithChildren<CardProps>) {
         <Flex py={2} w={'full'} alignItems={'center'} justifyContent={'center'}>
             <Box w={'350px'} h={'250px'} mx={'auto'} shadow={'lg'} rounded={'lg'} overflow={'hidden'}>
                 <Flex alignItems={'center'} px={6} py={3} bg={'gray.900'} justify={'space-between'}>
-                    <OverflownText color={'white'} fontWeight={'bold'} fontSize={'lg'} noOfLines={1} textOverflow={'ellipsis'} display={'inline'}>
+                    <OverflownText
+                        color={'white'}
+                        fontWeight={'bold'}
+                        fontSize={'lg'}
+                        noOfLines={1}
+                        textOverflow={'ellipsis'}
+                        display={'inline'}
+                    >
                         {title}
                     </OverflownText>
                     <Menu>
@@ -69,7 +75,13 @@ export function Card({ arsId, title }: React.PropsWithChildren<CardProps>) {
                     ) : (
                         <Box css={contentStyles}>
                             {busList.map((bus) => (
-                                <StyledInfo key={bus.rtNm} name={bus.rtNm} station={bus.stationNm1} time={bus.arrmsg1} onClick={handleInfoClick} />
+                                <StyledInfo
+                                    key={bus.rtNm}
+                                    name={bus.rtNm}
+                                    station={bus.stationNm1}
+                                    time={bus.arrmsg1}
+                                    onClick={handleInfoClick}
+                                />
                             ))}
                         </Box>
                     )}
