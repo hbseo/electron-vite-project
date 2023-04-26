@@ -8,10 +8,12 @@ import {
     ModalFooter,
     Button,
     ModalProps,
+    ModalContentProps,
 } from '@chakra-ui/react';
 
 export interface ModalCustomProps extends ModalProps {
     title: string;
+    modalContentProps?: ModalContentProps;
     handleModalConfirm: () => void;
 }
 
@@ -20,12 +22,13 @@ export function ModalCustom({
     isOpen,
     onClose,
     handleModalConfirm,
+    modalContentProps,
     children,
 }: React.PropsWithChildren<ModalCustomProps>) {
     return (
         <Modal isOpen={isOpen} onClose={onClose}>
             <ModalOverlay />
-            <ModalContent>
+            <ModalContent {...modalContentProps}>
                 <ModalHeader>{title}</ModalHeader>
                 <ModalCloseButton />
                 <ModalBody>{children}</ModalBody>
