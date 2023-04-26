@@ -15,27 +15,34 @@ export function BusPage() {
     const [busStation, setBusStation] = React.useState([defaultBusStation]);
     const [searchResult, setSearchResult] = React.useState<JSX.Element>(<></>);
     const inputRef = React.useRef<HTMLInputElement>(null);
+    const modalRef = React.useRef<HTMLInputElement>(null);
 
     const { isOpen: isOpenModal, onOpen: onOpenModal, onClose: onCloseModal } = useDisclosure();
     const { isOpen: isOpenText, onOpen: onOpenText, onClose: onCloseText } = useDisclosure();
 
     React.useEffect(() => {
         if (inputRef && inputRef.current) {
-            inputRef.current.addEventListener('focusout', () => {
-                onCloseText();
-            });
             inputRef.current.addEventListener('focusin', () => {
                 onOpenText();
+            });
+        }
+        if (modalRef && modalRef.current) {
+            modalRef.current.addEventListener('click', (e: any) => {
+                if (e.target?.nodeName?.toLowerCase() !== 'input') {
+                    onCloseText();
+                }
             });
         }
 
         return () => {
             if (inputRef && inputRef.current) {
-                inputRef.current.removeEventListener('focusout', () => {});
                 inputRef.current.removeEventListener('focusin', () => {});
             }
+            if (modalRef && modalRef.current) {
+                modalRef.current.removeEventListener('click', () => {});
+            }
         };
-    }, [isOpenText, inputRef]);
+    }, [isOpenModal, isOpenText, inputRef, modalRef]);
 
     React.useEffect(() => {
         setSearchResult(<></>);
@@ -50,9 +57,20 @@ export function BusPage() {
         }, 0);
     }, []);
 
+    const handleItemClick = React.useCallback((e: React.MouseEvent<HTMLElement>) => {
+        if (!(e.target instanceof HTMLElement)) return;
+
+        if (inputRef && inputRef.current) {
+            // let arsId = e.target.dataset['arsid'];
+            // console.log(inputRef);
+            // inputRef.current.value = e.currentTarget.innerText;
+        }
+    }, []);
+
     const handleInputChange = React.useCallback(
         useDebounce((value) => {
             if (value.length === 0) {
+                setSearchResult(<></>);
                 onCloseText();
             } else {
                 getStationByName(value).then((response) => {
@@ -70,12 +88,13 @@ export function BusPage() {
                                     return (
                                         <ListItem
                                             key={item.stId}
+                                            data-arsid={item.arsId}
                                             my={1}
                                             px={2}
                                             py={1}
                                             rounded={4}
                                             _hover={{ bg: '#edf2f7', cursor: 'pointer' }}
-                                            onClick={() => console.log('a')}
+                                            onClick={handleItemClick}
                                         >
                                             {item.stNm}
                                         </ListItem>
@@ -104,6 +123,7 @@ export function BusPage() {
                     isOpen={isOpenModal}
                     handleModalConfirm={onCloseModal}
                     modalContentProps={{ w: '500px' }}
+                    ref={modalRef}
                 >
                     <Box>
                         <Flex direction={'column'}>
