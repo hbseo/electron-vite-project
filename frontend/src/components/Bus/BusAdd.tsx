@@ -12,7 +12,7 @@ export function BusAdd({ ...props }: React.PropsWithChildren<CenterProps>) {
         <Flex py={2} w={'full'} alignItems={'center'} justifyContent={'center'}>
             <Center
                 w={'350px'}
-                h={'200px'}
+                h={'230px'}
                 mx={'auto'}
                 shadow={'lg'}
                 rounded={'lg'}

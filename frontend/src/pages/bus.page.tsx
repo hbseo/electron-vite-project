@@ -36,7 +36,6 @@ export function BusPage() {
                 onCloseText();
             } else {
                 getStationByName(value).then((response) => {
-                    console.log(response);
                     if (Number(response.data.msgHeader.headerCd) !== 0) {
                         setSearchResult(<Box>검색 결과가 없습니다.</Box>);
                     } else {
@@ -73,7 +72,15 @@ export function BusPage() {
                         <Flex direction={'column'} mr={2}>
                             <InputText size={'sm'} placeholder={'정류소 명'} action={handleInputChange} ref={ref} />
                             <ScaleFade initialScale={0.9} in={isOpenText}>
-                                <Box pos={'absolute'} rounded={4} bg={'rgba(255,255,255,0.7)'}>
+                                <Box
+                                    pos={'absolute'}
+                                    rounded={4}
+                                    bg={'rgba(255,255,255,0.9)'}
+                                    maxH={'200px'}
+                                    overflow={'auto'}
+                                    mt={2}
+                                    w={'250px'}
+                                >
                                     {searchResult}
                                 </Box>
                             </ScaleFade>
