@@ -69,7 +69,7 @@ export function BusPage() {
     const handleItemClick = React.useCallback(
         (e: React.MouseEvent<HTMLElement>) => {
             if (!(e.target instanceof HTMLElement)) return;
-            let stationId = e.target.id;
+            const stationId = e.target.id;
             setSelectedBusStationId(stationId);
 
             const station = searchResult.find((station) => station.stId === stationId);
