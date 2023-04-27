@@ -13,7 +13,10 @@ export function BusPage() {
     };
 
     const [busStation, setBusStation] = React.useState([defaultBusStation]);
-    const [searchResult, setSearchResult] = React.useState<JSX.Element>(<></>);
+    const [searchResult, setSearchResult] = React.useState<BusStation[]>([]);
+    const [selectedBusStationId, setSelectedBusStationId] = React.useState<string>('');
+    const [newStation, setNewStation] = React.useState<BusStation | null>(null);
+
     const inputRef = React.useRef<HTMLInputElement>(null);
     const modalRef = React.useRef<HTMLInputElement>(null);
 
@@ -24,6 +27,9 @@ export function BusPage() {
         if (inputRef && inputRef.current) {
             inputRef.current.addEventListener('focusin', () => {
                 onOpenText();
+                if (selectedBusStationId !== '') {
+                    document.getElementById(selectedBusStationId)?.scrollIntoView({ behavior: 'smooth' });
+                }
             });
         }
         if (modalRef && modalRef.current) {
@@ -42,11 +48,13 @@ export function BusPage() {
                 modalRef.current.removeEventListener('click', () => {});
             }
         };
-    }, [isOpenModal, isOpenText, inputRef, modalRef]);
+    }, [isOpenModal, isOpenText, inputRef, modalRef, selectedBusStationId]);
 
     React.useEffect(() => {
-        setSearchResult(<></>);
+        setSearchResult([]);
     }, [isOpenModal]);
+
+    React.useEffect(() => {}, [newStation]);
 
     const handleModalOpen = React.useCallback(() => {
         onOpenModal();
@@ -59,49 +67,21 @@ export function BusPage() {
 
     const handleItemClick = React.useCallback((e: React.MouseEvent<HTMLElement>) => {
         if (!(e.target instanceof HTMLElement)) return;
-
-        if (inputRef && inputRef.current) {
-            // let arsId = e.target.dataset['arsid'];
-            // console.log(inputRef);
-            // inputRef.current.value = e.currentTarget.innerText;
-        }
+        let stationId = e.target.id;
+        setSelectedBusStationId(stationId);
     }, []);
 
     const handleInputChange = React.useCallback(
         useDebounce((value) => {
             if (value.length === 0) {
-                setSearchResult(<></>);
+                setSearchResult([]);
                 onCloseText();
             } else {
                 getStationByName(value).then((response) => {
                     if (Number(response.data.msgHeader.headerCd) !== 0) {
-                        setSearchResult(
-                            <Box px={2} py={1}>
-                                검색 결과가 없습니다.
-                            </Box>,
-                        );
+                        setSearchResult([]);
                     } else {
-                        setSearchResult(
-                            <List>
-                                {response.data.msgBody.itemList.map((item: BusStation) => {
-                                    if (Number(item.arsId) === 0) return;
-                                    return (
-                                        <ListItem
-                                            key={item.stId}
-                                            data-arsid={item.arsId}
-                                            my={1}
-                                            px={2}
-                                            py={1}
-                                            rounded={4}
-                                            _hover={{ bg: '#edf2f7', cursor: 'pointer' }}
-                                            onClick={handleItemClick}
-                                        >
-                                            {item.stNm}
-                                        </ListItem>
-                                    );
-                                })}
-                            </List>,
-                        );
+                        setSearchResult(response.data.msgBody.itemList);
                     }
                     onOpenText();
                 });
@@ -144,7 +124,29 @@ export function BusPage() {
                                     mt={2}
                                     zIndex={1}
                                 >
-                                    {searchResult}
+                                    <List>
+                                        {searchResult.length > 0 ? (
+                                            searchResult.map((item: BusStation) => (
+                                                <ListItem
+                                                    key={item.stId}
+                                                    id={item.stId}
+                                                    my={1}
+                                                    px={2}
+                                                    py={1}
+                                                    rounded={4}
+                                                    bg={selectedBusStationId === item.stId ? '#cbd5e0' : ''}
+                                                    _hover={{ bg: '#cbd5e0', cursor: 'pointer' }}
+                                                    onClick={handleItemClick}
+                                                >
+                                                    {item.stNm}
+                                                </ListItem>
+                                            ))
+                                        ) : (
+                                            <Box px={2} py={1}>
+                                                검색 결과가 없습니다.
+                                            </Box>
+                                        )}
+                                    </List>
                                 </Card>
                             </ScaleFade>
                         </Flex>
