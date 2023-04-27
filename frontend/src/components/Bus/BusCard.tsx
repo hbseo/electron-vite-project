@@ -3,7 +3,7 @@ import styled from '@emotion/styled';
 import { css } from '@emotion/react';
 import { Flex, Box, MenuItem, IconButton, Menu, MenuButton, MenuList } from '@chakra-ui/react';
 import { BusInfo, BusRoute } from '@/components/Bus';
-import { OverflownText, InputText } from '@/custom';
+import { OverflownText } from '@/custom';
 import { GoKebabVertical } from 'react-icons/go';
 import { getStationByUid } from '@/api';
 import { BusArrival } from '@/interfaces/busArrival.interface';

@@ -2,9 +2,20 @@ import { Box, Flex, Drawer, DrawerOverlay, DrawerContent, useDisclosure, IconBut
 import { Sidebar } from '@/components/Sidebar';
 import { FiMenu } from 'react-icons/fi';
 import { Router } from '@/Router';
+import { NAVER_MAP_CLIENT_ID } from '@/config';
+
+import React from 'react';
 
 export function App() {
     const sidebar = useDisclosure();
+
+    React.useEffect(() => {
+        const script = document.createElement('script');
+        script.async = true;
+        script.src = `https://openapi.map.naver.com/openapi/v3/maps.js?ncpClientId=${NAVER_MAP_CLIENT_ID}`;
+        document.body.appendChild(script);
+    }, []);
+
     return (
         <Box as={'section'} minH={'100vh'}>
             <Sidebar display={{ base: 'none', md: 'unset' }} />

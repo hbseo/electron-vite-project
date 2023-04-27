@@ -19,6 +19,7 @@ export function BusPage() {
 
     const inputRef = React.useRef<HTMLInputElement>(null);
     const modalRef = React.useRef<HTMLInputElement>(null);
+    const mapElement = React.useRef<HTMLDivElement>(null);
 
     const { isOpen: isOpenModal, onOpen: onOpenModal, onClose: onCloseModal } = useDisclosure();
     const { isOpen: isOpenText, onOpen: onOpenText, onClose: onCloseText } = useDisclosure();
@@ -48,7 +49,7 @@ export function BusPage() {
                 modalRef.current.removeEventListener('click', () => {});
             }
         };
-    }, [isOpenModal, isOpenText, inputRef, modalRef, selectedBusStationId]);
+    }, [isOpenModal, isOpenText, selectedBusStationId]);
 
     React.useEffect(() => {
         setSearchResult([]);
@@ -65,11 +66,27 @@ export function BusPage() {
         }, 0);
     }, []);
 
-    const handleItemClick = React.useCallback((e: React.MouseEvent<HTMLElement>) => {
-        if (!(e.target instanceof HTMLElement)) return;
-        let stationId = e.target.id;
-        setSelectedBusStationId(stationId);
-    }, []);
+    const handleItemClick = React.useCallback(
+        (e: React.MouseEvent<HTMLElement>) => {
+            if (!(e.target instanceof HTMLElement)) return;
+            let stationId = e.target.id;
+            setSelectedBusStationId(stationId);
+
+            const station = searchResult.find((station) => station.stId === stationId);
+
+            const { naver } = window;
+
+            if (!mapElement.current || !naver) return;
+            const location = new naver.maps.LatLng(Number(station?.tmY), Number(station?.tmX));
+            const mapOptions: naver.maps.MapOptions = {
+                center: location,
+                zoom: 15,
+                zoomControl: false,
+            };
+            const map = new naver.maps.Map(mapElement.current, mapOptions);
+        },
+        [searchResult],
+    );
 
     const handleInputChange = React.useCallback(
         useDebounce((value) => {
@@ -150,7 +167,7 @@ export function BusPage() {
                                 </Card>
                             </ScaleFade>
                         </Flex>
-                        <Box mt={2} h={'200px'} bg={'gray.600'} rounded={4} />
+                        <Box ref={mapElement} mt={2} h={'200px'} bg={'gray.600'} rounded={4} />
                     </Box>
                 </ModalCustom>
             </SimpleGrid>
