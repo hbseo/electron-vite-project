@@ -80,10 +80,14 @@ export function BusPage() {
             const location = new naver.maps.LatLng(Number(station?.tmY), Number(station?.tmX));
             const mapOptions: naver.maps.MapOptions = {
                 center: location,
-                zoom: 15,
+                zoom: 17,
                 zoomControl: false,
             };
             const map = new naver.maps.Map(mapElement.current, mapOptions);
+            const marker = new naver.maps.Marker({
+                position: location,
+                map: map,
+            });
         },
         [searchResult],
     );
