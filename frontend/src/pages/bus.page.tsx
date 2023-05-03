@@ -7,14 +7,13 @@ import { getStationByName } from '@/api';
 import { BusStation } from '@/interfaces/busStation.interface';
 
 export function BusPage() {
-    const defaultBusStation = {
-        title: '금천구청',
-        arsId: '19004',
-    };
-
-    const [busStation, setBusStation] = React.useState([defaultBusStation]);
+    const [busStation, setBusStation] = React.useState<{ title: string; arsId: string }[]>([]);
     const [searchResult, setSearchResult] = React.useState<BusStation[]>([]);
-    const [selectedBusStationId, setSelectedBusStationId] = React.useState<string>('');
+    const [selectedBusStation, setSelectedBusStation] = React.useState<{
+        title: string;
+        arsId: string;
+        stId: string;
+    }>();
     const [newStation, setNewStation] = React.useState<BusStation | null>(null);
 
     const inputRef = React.useRef<HTMLInputElement>(null);
@@ -28,8 +27,8 @@ export function BusPage() {
         if (inputRef && inputRef.current) {
             inputRef.current.addEventListener('focusin', () => {
                 onOpenText();
-                if (selectedBusStationId !== '') {
-                    document.getElementById(selectedBusStationId)?.scrollIntoView({ behavior: 'smooth' });
+                if (selectedBusStation && selectedBusStation.stId !== '') {
+                    document.getElementById(selectedBusStation.stId)?.scrollIntoView({ behavior: 'smooth' });
                 }
             });
         }
@@ -49,7 +48,7 @@ export function BusPage() {
                 modalRef.current.removeEventListener('click', () => {});
             }
         };
-    }, [isOpenModal, isOpenText, selectedBusStationId]);
+    }, [isOpenModal, isOpenText, selectedBusStation]);
 
     React.useEffect(() => {
         setSearchResult([]);
@@ -70,26 +69,28 @@ export function BusPage() {
         (e: React.MouseEvent<HTMLElement>) => {
             if (!(e.target instanceof HTMLElement)) return;
             const stationId = e.target.id;
-            setSelectedBusStationId(stationId);
-
             const station = searchResult.find((station) => station.stId === stationId);
 
-            const { naver } = window;
+            if (station) {
+                setSelectedBusStation({ title: station.stNm, arsId: station.arsId, stId: station.stId });
 
-            if (!mapElement.current || !naver) return;
-            const location = new naver.maps.LatLng(Number(station?.tmY), Number(station?.tmX));
-            const mapOptions: naver.maps.MapOptions = {
-                center: location,
-                zoom: 17,
-                zoomControl: false,
-            };
-            const map = new naver.maps.Map(mapElement.current, mapOptions);
-            const marker = new naver.maps.Marker({
-                position: location,
-                map: map,
-            });
+                const { naver } = window;
+
+                if (!mapElement.current || !naver) return;
+                const location = new naver.maps.LatLng(Number(station?.tmY), Number(station?.tmX));
+                const mapOptions: naver.maps.MapOptions = {
+                    center: location,
+                    zoom: 17,
+                    zoomControl: false,
+                };
+                const map = new naver.maps.Map(mapElement.current, mapOptions);
+                const marker = new naver.maps.Marker({
+                    position: location,
+                    map: map,
+                });
+            }
         },
-        [searchResult],
+        [searchResult, selectedBusStation],
     );
 
     const handleInputChange = React.useCallback(
@@ -111,6 +112,13 @@ export function BusPage() {
         [],
     );
 
+    const handleModalConfirm = React.useCallback(() => {
+        if (selectedBusStation) {
+            setBusStation([...busStation, selectedBusStation]);
+        }
+        onCloseModal();
+    }, [selectedBusStation]);
+
     return (
         <Box>
             <SimpleGrid minChildWidth={'350px'} spacing={2}>
@@ -122,7 +130,7 @@ export function BusPage() {
                     title={'Modal Title'}
                     onClose={onCloseModal}
                     isOpen={isOpenModal}
-                    handleModalConfirm={onCloseModal}
+                    handleModalConfirm={handleModalConfirm}
                     modalContentProps={{ w: '500px' }}
                     ref={modalRef}
                 >
@@ -155,7 +163,7 @@ export function BusPage() {
                                                     px={2}
                                                     py={1}
                                                     rounded={4}
-                                                    bg={selectedBusStationId === item.stId ? '#cbd5e0' : ''}
+                                                    bg={selectedBusStation?.stId === item.stId ? '#cbd5e0' : ''}
                                                     _hover={{ bg: '#cbd5e0', cursor: 'pointer' }}
                                                     onClick={handleItemClick}
                                                 >
