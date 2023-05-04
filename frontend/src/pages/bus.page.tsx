@@ -5,15 +5,13 @@ import { ModalCustom, InputText } from '@/custom';
 import { useDebounce } from '@/hooks';
 import { getStationByName } from '@/api';
 import { BusStation } from '@/interfaces/busStation.interface';
+import { useRecoilState } from 'recoil';
+import { stationState } from '@/store';
 
 export function BusPage() {
-    const [busStation, setBusStation] = React.useState<{ title: string; arsId: string }[]>([]);
+    const [busStation, setBusStation] = useRecoilState<BusStation[]>(stationState);
     const [searchResult, setSearchResult] = React.useState<BusStation[]>([]);
-    const [selectedBusStation, setSelectedBusStation] = React.useState<{
-        title: string;
-        arsId: string;
-        stId: string;
-    }>();
+    const [selectedBusStation, setSelectedBusStation] = React.useState<BusStation>();
     const [newStation, setNewStation] = React.useState<BusStation | null>(null);
 
     const inputRef = React.useRef<HTMLInputElement>(null);
@@ -52,6 +50,7 @@ export function BusPage() {
 
     React.useEffect(() => {
         setSearchResult([]);
+        setSelectedBusStation(undefined);
     }, [isOpenModal]);
 
     React.useEffect(() => {}, [newStation]);
@@ -72,7 +71,7 @@ export function BusPage() {
             const station = searchResult.find((station) => station.stId === stationId);
 
             if (station) {
-                setSelectedBusStation({ title: station.stNm, arsId: station.arsId, stId: station.stId });
+                setSelectedBusStation(station);
 
                 const { naver } = window;
 
@@ -90,7 +89,7 @@ export function BusPage() {
                 });
             }
         },
-        [searchResult, selectedBusStation],
+        [busStation, searchResult, selectedBusStation],
     );
 
     const handleInputChange = React.useCallback(
@@ -113,17 +112,20 @@ export function BusPage() {
     );
 
     const handleModalConfirm = React.useCallback(() => {
-        if (selectedBusStation) {
+        if (
+            selectedBusStation &&
+            busStation.find((station) => station.stId === selectedBusStation.stId) === undefined
+        ) {
             setBusStation([...busStation, selectedBusStation]);
         }
         onCloseModal();
-    }, [selectedBusStation]);
+    }, [busStation, selectedBusStation]);
 
     return (
         <Box>
             <SimpleGrid minChildWidth={'350px'} spacing={2}>
                 {busStation.map((station) => (
-                    <BusCard key={station.arsId} title={station.title} arsId={station.arsId} />
+                    <BusCard key={station.stId} title={station.stNm} arsId={station.arsId} />
                 ))}
                 <BusAdd onClick={handleModalOpen} />
                 <ModalCustom

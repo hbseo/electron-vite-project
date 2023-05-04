@@ -76,7 +76,7 @@ export function BusCard({ arsId, title }: React.PropsWithChildren<BusCardProps>)
                         <Box css={contentStyles}>
                             {busList.map((bus) => (
                                 <StyledInfo
-                                    key={bus.rtNm}
+                                    key={bus.vehId1}
                                     name={bus.rtNm}
                                     station={bus.stationNm1}
                                     time={bus.arrmsg1}
