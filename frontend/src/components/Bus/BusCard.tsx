@@ -7,6 +7,9 @@ import { OverflownText } from '@/custom';
 import { GoKebabVertical } from 'react-icons/go';
 import { getStationByUid } from '@/api';
 import { BusArrival } from '@/interfaces/busArrival.interface';
+import { stationSelector } from '@/store';
+import { BusStation } from '@/interfaces/busStation.interface';
+import { useSetRecoilState } from 'recoil';
 
 const StyledInfo = styled(BusInfo)`
     &:not(:last-child) {
@@ -26,6 +29,7 @@ export interface BusCardProps {
 export function BusCard({ arsId, title }: React.PropsWithChildren<BusCardProps>) {
     const [showBusRoute, setShowBusRoute] = React.useState(false);
     const [busList, setBusList] = React.useState<BusArrival[]>([]);
+    const setBusStation = useSetRecoilState<BusStation[]>(stationSelector);
 
     React.useEffect(() => {
         if (arsId.length === 4) {
@@ -40,9 +44,9 @@ export function BusCard({ arsId, title }: React.PropsWithChildren<BusCardProps>)
         setShowBusRoute((prev) => !prev);
     }, [setShowBusRoute]);
 
-    const handleSearchInputChange = React.useCallback((value: string | number) => {
-        console.log(value);
-    }, []);
+    const handleRemoveClick = React.useCallback(() => {
+        setBusStation((prev) => prev.filter((station) => station.arsId !== arsId));
+    }, [setBusStation, arsId]);
 
     return (
         <Flex py={2} w={'full'} alignItems={'center'} justifyContent={'center'}>
@@ -62,7 +66,7 @@ export function BusCard({ arsId, title }: React.PropsWithChildren<BusCardProps>)
                         <MenuButton as={IconButton} aria-label={'Options'} icon={<GoKebabVertical />}></MenuButton>
                         <MenuList>
                             <MenuItem>수정</MenuItem>
-                            <MenuItem>삭제</MenuItem>
+                            <MenuItem onClick={handleRemoveClick}>삭제</MenuItem>
                         </MenuList>
                     </Menu>
                 </Flex>

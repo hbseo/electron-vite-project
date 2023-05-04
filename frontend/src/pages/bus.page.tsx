@@ -6,13 +6,12 @@ import { useDebounce } from '@/hooks';
 import { getStationByName } from '@/api';
 import { BusStation } from '@/interfaces/busStation.interface';
 import { useRecoilState } from 'recoil';
-import { stationState } from '@/store';
+import { stationSelector } from '@/store';
 
 export function BusPage() {
-    const [busStation, setBusStation] = useRecoilState<BusStation[]>(stationState);
+    const [busStation, setBusStation] = useRecoilState<BusStation[]>(stationSelector);
     const [searchResult, setSearchResult] = React.useState<BusStation[]>([]);
     const [selectedBusStation, setSelectedBusStation] = React.useState<BusStation>();
-    const [newStation, setNewStation] = React.useState<BusStation | null>(null);
 
     const inputRef = React.useRef<HTMLInputElement>(null);
     const modalRef = React.useRef<HTMLInputElement>(null);
@@ -52,8 +51,6 @@ export function BusPage() {
         setSearchResult([]);
         setSelectedBusStation(undefined);
     }, [isOpenModal]);
-
-    React.useEffect(() => {}, [newStation]);
 
     const handleModalOpen = React.useCallback(() => {
         onOpenModal();
