@@ -1,8 +1,6 @@
 import React from 'react';
-import styled from '@emotion/styled';
-import { css } from '@emotion/react';
-import { Flex, Box, MenuItem, IconButton, Menu, MenuButton, MenuList } from '@chakra-ui/react';
-import { BusInfo, BusRoute } from '@/components/Bus';
+import { Flex, Box, MenuItem, IconButton, Menu, MenuButton, MenuList, Grid, GridItem } from '@chakra-ui/react';
+import { BusInfo } from '@/components/Bus';
 import { OverflownText } from '@/custom';
 import { GoKebabVertical } from 'react-icons/go';
 import { getStationByUid } from '@/api';
@@ -11,23 +9,12 @@ import { stationSelector } from '@/store';
 import { BusStation } from '@/interfaces/busStation.interface';
 import { useSetRecoilState } from 'recoil';
 
-const StyledInfo = styled(BusInfo)`
-    &:not(:last-child) {
-        border-bottom: 1px solid black;
-    }
-`;
-
-const contentStyles = css`
-    margin: 4px 0;
-`;
-
 export interface BusCardProps {
     arsId: string;
     title: string;
 }
 
 export function BusCard({ arsId, title }: React.PropsWithChildren<BusCardProps>) {
-    const [showBusRoute, setShowBusRoute] = React.useState(false);
     const [busList, setBusList] = React.useState<BusArrival[]>([]);
     const setBusStation = useSetRecoilState<BusStation[]>(stationSelector);
 
@@ -37,12 +24,9 @@ export function BusCard({ arsId, title }: React.PropsWithChildren<BusCardProps>)
         }
         getStationByUid(arsId).then((response) => {
             setBusList(response.data.msgBody.itemList);
+            console.log(response.data.msgBody.itemList);
         });
     }, []);
-
-    const handleInfoClick = React.useCallback(() => {
-        setShowBusRoute((prev) => !prev);
-    }, [setShowBusRoute]);
 
     const handleRemoveClick = React.useCallback(() => {
         setBusStation((prev) => prev.filter((station) => station.arsId !== arsId));
@@ -72,23 +56,15 @@ export function BusCard({ arsId, title }: React.PropsWithChildren<BusCardProps>)
                 </Flex>
 
                 <Box py={2} px={4} maxH={'200px'} overflowY={'auto'}>
-                    {showBusRoute ? (
-                        <Box css={contentStyles}>
-                            <BusRoute />
-                        </Box>
-                    ) : (
-                        <Box css={contentStyles}>
-                            {busList.map((bus) => (
-                                <StyledInfo
-                                    key={bus.vehId1}
-                                    name={bus.rtNm}
-                                    station={bus.stationNm1}
-                                    time={bus.arrmsg1}
-                                    onClick={handleInfoClick}
-                                />
+                    <Grid templateColumns={'3'}>
+                        {busList
+                            .filter((bus) => bus.arrmsg1 === '곧 도착')
+                            .map((bus) => (
+                                <GridItem key={bus.vehId1}>
+                                    <BusInfo name={bus.rtNm} arrmsg1={'곧도착'} arrmsg2={bus.arrmsg2} show />
+                                </GridItem>
                             ))}
-                        </Box>
-                    )}
+                    </Grid>
                 </Box>
             </Box>
         </Flex>

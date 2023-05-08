@@ -1,31 +1,31 @@
-import { Flex, FlexProps } from '@chakra-ui/react';
-import { OverflownText } from '@/custom/OverflownText';
+import React from 'react';
+import { Text, Flex, Center, FlexProps } from '@chakra-ui/react';
 
 export interface BusInfoProps extends FlexProps {
     name: string;
-    station: string;
-    time: string;
+    arrmsg1: string;
+    arrmsg2?: string;
+    show?: boolean;
 }
 
-export function BusInfo({ name, station, time, ...rest }: React.PropsWithChildren<BusInfoProps>) {
+export function BusInfo({ name, arrmsg1, arrmsg2, show = false, ...rest }: React.PropsWithChildren<BusInfoProps>) {
     return (
-        <Flex
-            alignItems={'center'}
-            justifyContent={'center'}
-            p={1}
-            minW={'300px'}
-            _hover={{ cursor: 'pointer' }}
-            {...rest}
-        >
-            <OverflownText noOfLines={1} fontSize={'xs'} display={'inline'} width={'19%'} textAlign={'left'} mr={'1%'}>
-                {name}
-            </OverflownText>
-            <OverflownText noOfLines={1} fontSize={'xs'} display={'inline'} width={'65%'} textAlign={'center'}>
-                {station}
-            </OverflownText>
-            <OverflownText noOfLines={1} fontSize={'xs'} display={'inline'} width={'14%'} textAlign={'right'} ml={'1%'}>
-                {time}
-            </OverflownText>
+        <Flex direction={'column'} w={'80px'} {...rest}>
+            <Center>
+                <Text fontSize={'md'} as={'b'}>
+                    {name}
+                </Text>
+            </Center>
+            <Center>
+                <Text fontSize={'2xs'} noOfLines={1}>
+                    {arrmsg1}
+                </Text>
+                {show && arrmsg2 ? (
+                    <Text fontSize={'2xs'} noOfLines={1} align={'right'}>
+                        / {arrmsg2?.replace(/(?<=분).+/g, '')?.trim()}
+                    </Text>
+                ) : null}
+            </Center>
         </Flex>
     );
 }
