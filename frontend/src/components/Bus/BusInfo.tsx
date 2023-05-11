@@ -18,7 +18,7 @@ export function BusInfo({ name, arrmsg1, arrmsg2, show = false, ...rest }: React
             </Center>
             <Center>
                 <Text fontSize={'2xs'} noOfLines={1}>
-                    {arrmsg1}
+                    {arrmsg1?.replace(/(?<=분).+/g, '')?.trim()}
                 </Text>
                 {show && arrmsg2 ? (
                     <Text fontSize={'2xs'} noOfLines={1} align={'right'}>
