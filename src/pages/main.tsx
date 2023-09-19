@@ -23,12 +23,15 @@ export const Page = () => {
         </div>
       </div>
       <Box
-        className="cursor-pointer bg-slate-100 !p-2 !px-3 hover:shadow-none"
+        className="cursor-pointer bg-slate-100 !p-2 !px-3 hover:shadow-md"
         onClick={() => {
           handleOnClickBox('vacation');
         }}
       >
-        <h1 className="font-bold">휴가</h1>
+        <span className="flex flex-row justify-between">
+          <h1 className="font-bold">휴가</h1>
+          <span className="self-end text-xs">잔여: 15일</span>
+        </span>
         <div className="flex flex-row">
           <div className="w-1/2 p-1">
             <h2 className="text-sm">쓴</h2>
@@ -44,6 +47,9 @@ export const Page = () => {
             </ul>
           </div>
         </div>
+      </Box>
+      <Box className="cursor-pointer bg-slate-100 !p-2 !px-3 hover:shadow-md">
+        <h1 className="font-bold">일정</h1>
       </Box>
     </div>
   );
