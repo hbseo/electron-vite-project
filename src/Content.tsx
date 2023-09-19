@@ -13,7 +13,7 @@ export const Content = () => {
 
   return (
     <>
-      <main className="h-full overflow-y-auto p-4" ref={main}>
+      <main className="h-full overflow-y-auto bg-slate-50 p-4" ref={main}>
         <Routes>
           {routes.map(({ path, element }) => (
             <Route key={path} path={path} element={element()} />
