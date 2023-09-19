@@ -1,4 +1,4 @@
-import { MainPage, VacationPage, CalendarPage, MenuPage } from '@/pages';
+import { MainPage, VacationPage, CalendarPage, SettingPage } from '@/pages';
 
 export const routes = [
   {
@@ -14,7 +14,7 @@ export const routes = [
     element: CalendarPage
   },
   {
-    path: '/menu',
-    element: MenuPage
+    path: '/setting',
+    element: SettingPage
   }
 ];

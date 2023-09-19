@@ -2,8 +2,20 @@
 @tailwind components;
 @tailwind utilities;
 
+@font-face {
+  font-family: 'NotoSansKR';
+  src: url('/fonts/NotoSansKR-Regular.ttf');
+}
+
+html,
+body,
+#root {
+  height: 100%;
+}
+
 body {
   -webkit-user-select: none;
+  font-family: 'NotoSansKR';
 }
 
 img {
