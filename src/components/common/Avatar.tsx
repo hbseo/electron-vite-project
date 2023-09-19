@@ -1,20 +1,22 @@
 import { classNames } from '@/utils/common';
-import defaultIcon from '@/assets/svg/user.svg';
+import userIcon from '@/assets/svg/user.svg';
 
 export const Avatar = ({
   src,
-  rounded = true,
-  className
+  variant = 'rounded',
+  className,
+  ...rest
 }: {
   src?: string;
-  rounded?: boolean;
+  variant?: 'square' | 'rounded';
   className?: string;
 }) => {
-  const round = rounded ? 'rounded-lg' : '';
+  const round = variant === 'rounded' ? 'rounded-lg' : '';
   return (
     <img
       className={classNames('h-5 w-5', round, className)}
-      src={src || defaultIcon}
+      src={src || userIcon}
+      {...rest}
     />
   );
 };
