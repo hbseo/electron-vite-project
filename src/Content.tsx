@@ -13,7 +13,11 @@ export const Content = () => {
 
   return (
     <>
-      <main className="h-full overflow-y-auto bg-slate-50 p-4" ref={main}>
+      <main
+        className="overflow-y-auto p-4"
+        ref={main}
+        style={{ height: 'calc(100% - 56px)' }}
+      >
         <Routes>
           {routes.map(({ path, element }) => (
             <Route key={path} path={path} element={element()} />
@@ -21,7 +25,7 @@ export const Content = () => {
           <Route path="*" element={<Navigate to="/" />} />
         </Routes>
       </main>
-      <Footer className="absolute bottom-0" />
+      <Footer className="fixed bottom-0 h-14" />
     </>
   );
 };

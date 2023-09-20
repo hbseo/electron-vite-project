@@ -23,7 +23,7 @@ export const Page = () => {
         </div>
       </div>
       <Box
-        className="cursor-pointer bg-slate-200 !p-2 !px-3 hover:!shadow-md"
+        className="cursor-pointer bg-slate-100 !p-2 !px-3 hover:!shadow-md"
         onClick={() => {
           handleOnClickBox('vacation');
         }}
@@ -49,7 +49,7 @@ export const Page = () => {
         </div>
       </Box>
       <Box
-        className="cursor-pointer bg-slate-200 !p-2 !px-3 hover:!shadow-md"
+        className="cursor-pointer bg-slate-100 !p-2 !px-3 hover:!shadow-md"
         onClick={() => {
           handleOnClickBox('calendar');
         }}

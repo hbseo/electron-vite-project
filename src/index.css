@@ -21,3 +21,7 @@ body {
 img {
   -webkit-user-drag: none;
 }
+
+::-webkit-scrollbar {
+  width: 0;
+}
