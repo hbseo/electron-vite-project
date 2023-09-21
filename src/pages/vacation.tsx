@@ -1,6 +1,7 @@
-import { Box, Icon } from '@/components/common';
+import { Box, Icon, Modal } from '@/components/common';
 import { Layout } from '@/layouts/page.layout';
 import plusIcon from '@/assets/svg/plus.svg';
+import { useState } from 'react';
 
 const Item = () => {
   return (
@@ -14,6 +15,7 @@ const Item = () => {
 };
 
 export const Page = () => {
+  const [open, setOpen] = useState<boolean>(false);
   return (
     <Layout>
       <h1 className="text-xl font-bold">휴가</h1>
@@ -39,9 +41,15 @@ export const Page = () => {
           <Item />
           <Item />
         </ul>
-        <div className="mt-1 flex h-5 justify-center rounded-lg duration-300 hover:bg-slate-200 active:bg-slate-300">
+        <div
+          className="mt-1 flex h-5 justify-center rounded-lg duration-300 hover:bg-slate-200 active:bg-slate-300"
+          onClick={() => {
+            setOpen(true);
+          }}
+        >
           <Icon component={plusIcon} />
         </div>
+        <Modal open={open} setOpen={setOpen}></Modal>
       </Box>
     </Layout>
   );

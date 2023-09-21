@@ -13,11 +13,7 @@ export const Content = () => {
 
   return (
     <>
-      <main
-        className="overflow-y-auto p-4"
-        ref={main}
-        style={{ height: 'calc(100% - 56px)' }}
-      >
+      <main className="h-full overflow-y-auto p-4" ref={main}>
         <Routes>
           {routes.map(({ path, element }) => (
             <Route key={path} path={path} element={element()} />
