@@ -5,12 +5,12 @@ import { useState } from 'react';
 
 const Item = () => {
   return (
-    <ul>
-      <div className="flex justify-between text-xs">
+    <div className="cursor-pointer rounded-lg px-1 text-xs hover:bg-slate-200">
+      <div className="flex justify-between">
         <div>20.09.20 ~ 20.09.24</div>
         <div>(5 일)</div>
       </div>
-    </ul>
+    </div>
   );
 };
 
